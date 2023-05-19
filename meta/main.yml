@@ -1,6 +1,6 @@
 galaxy_info:
   role_name: ansible-role-clock
-  namespace: etc-fstab
+  namespace: etc_fstab
   author: zd
   description: Clock management
 
