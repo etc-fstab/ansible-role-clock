@@ -1,0 +1,6 @@
+---
+- name: Test clock role
+  hosts: test
+  roles:
+    - role: ../../ansible-role-clock
+...

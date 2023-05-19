@@ -1,0 +1,14 @@
+---
+# time var is yes by default
+
+# For positive: [Yy][Ee][Ss], Y, y
+# For negative: [Nn][Oo], N, n
+
+# (1) To disable time mgmt on this hostgroup.
+time_mgmt: "no"
+
+# OR
+
+# (2) To define hostgroup vars.
+time_conf: "templates/chrony/hostgroup=example.j2"
+...

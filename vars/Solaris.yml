@@ -1,0 +1,5 @@
+---
+time_pkg: "ntp"
+time_service: "ntp"
+driftfile: "/var/ntp/ntp.drift"
+...

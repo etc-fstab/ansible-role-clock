@@ -1,0 +1,5 @@
+---
+# if this location is LA
+timezone: "America/Los_Angeles"
+time_conf: "templates/location=location-example.j2"
+...

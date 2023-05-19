@@ -1,0 +1,18 @@
+---
+# handlers file for time
+- name: Restart Linux chronyd service
+  ansible.builtin.service:
+    name: chronyd
+    state: restarted
+  register: result
+  failed_when: "result is failed and not 'Could not find the requested service' in result.msg"
+
+- name: Restart Solaris ntp service
+  ansible.builtin.service:
+    name: ntp
+    state: restarted
+  register: result
+  failed_when:
+    - "result is failed and not 'svcadm: Pattern' in result.msg"
+    - "result is failed and not 'match any instances' in result.msg"
+...

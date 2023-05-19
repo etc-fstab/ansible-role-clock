@@ -1,0 +1,36 @@
+---
+- name: Load Linux vars
+  ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_os_family }}.yml"
+        - "unknown-os.yml"
+      paths:
+        - "vars"
+
+- name: Manage Linux time package
+  ansible.builtin.dnf:
+    name: "{{ time_pkg }}"
+    state: present
+
+- name: Manage Linux time config file
+  ansible.builtin.template:
+    src: "{{ time_conf }}"
+    dest: /etc/chrony.conf
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
+  notify:
+    - Restart Linux chronyd service
+
+- name: Manage Linux service {{ time_service }}
+  ansible.builtin.service:
+    name: "{{ time_service }}"
+    state: started
+    enabled: true
+  register: result
+  failed_when:
+    - "result is failed and not 'Could not find the requested service' in result.msg"
+...

@@ -1,0 +1,14 @@
+---
+# time var is yes by default
+
+# For positive: [Yy][Ee][Ss], Y, y
+# For negative: [Nn][Oo], N, n
+
+# (1) To disable time mgmt on this host
+time_mgmt: "no"
+
+# OR
+
+# (2) To define host based vars (overwrite site based vars)
+time_conf: "templates/chrony/hostname=fqdn-example.j2"
+...

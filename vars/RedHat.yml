@@ -1,0 +1,5 @@
+---
+time_pkg: "chrony"
+time_service: "chronyd"
+driftfile: "/var/lib/chrony/drift"
+...

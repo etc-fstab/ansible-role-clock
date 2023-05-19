@@ -1,0 +1,44 @@
+---
+- name: Manage timezone (Linux)
+  when:
+    ansible_facts['os_family'] == "RedHat" and
+    ansible_facts['distribution_major_version'] >= "8"
+  community.general.timezone:
+    name: "{{ timezone }}"
+  notify:
+    - Restart Linux chronyd service
+
+# S10 timezone info: /usr/share/lib/zoneinfo
+# /etc/TIMEZONE is link to /etc/default/init
+- name: Manage Solaris 10 timezone
+  when:
+    ansible_facts['os_family'] == "Solaris" and
+    ansible_facts['distribution_major_version'] == "10"
+  ansible.builtin.lineinfile:
+    path: /etc/default/init
+    regexp: '^TZ=*'
+    line: 'TZ={{ timezone }}'
+  notify:
+    - Restart Solaris ntp service
+
+- name: Manage Solaris 11 timezone
+  when:
+    ansible_facts['distribution'] == "Solaris" and
+    ansible_facts['distribution_major_version'] == "11"
+  block:
+    - name: Get Solaris 11 timezone
+      ansible.builtin.shell:
+        "set -o pipefail ; nlsadm get-timezone | awk -F= '{print $2}'"
+      changed_when: false
+      check_mode: false
+      register: __current_tz
+
+    - name: Set current timezone fact
+      ansible.builtin.set_fact:
+        current_tz: "{{ __current_tz.stdout }}"
+
+    - name: Set Solaris 11 timezone
+      when: "__current_tz.stdout != timezone"
+      ansible.builtin.command:
+        cmd: "nlsadm set-timezone {{ timezone }}"
+...

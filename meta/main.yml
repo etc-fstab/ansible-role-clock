@@ -1,0 +1,35 @@
+galaxy_info:
+  role_name: ansible-role-clock
+  namespace: etc-fstab
+  author: zd
+  description: Clock management
+
+  license: "Public Domain"
+
+  min_ansible_version: 2.10.7
+
+  platforms:
+    - name: EL
+      versions:
+        - 8
+        - 9
+    - name: OracleLinux
+      versions:
+        - 8
+        - 9
+    - name: Fedora
+      versions:
+        - 28
+    - name: Solaris
+      versions:
+        - 10
+        - 11
+
+  galaxy_tags:
+    - system
+    - linux
+    - solaris
+    - clock
+    - time
+
+dependencies: []

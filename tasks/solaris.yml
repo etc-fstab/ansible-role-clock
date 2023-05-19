@@ -1,0 +1,38 @@
+---
+- name: Load Solaris vars
+  ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_os_family }}.yml"
+        - "unknown-os.yml"
+      paths:
+        - "vars"
+
+- name: Manage Solaris 11 package
+  when: ansible_facts['distribution_major_version'] == "11"
+  ansible.builtin.package:
+    name: "{{ time_pkg }}"
+    state: present
+
+- name: Manage Solaris time config file
+  ansible.builtin.template:
+    src: "{{ time_conf }}"
+    dest: /etc/inet/ntp.conf
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
+  notify:
+    - Restart Solaris ntp service
+
+- name: Manage Solaris service {{ time_service }}
+  ansible.builtin.service:
+    name: "{{ time_service }}"
+    state: started
+    enabled: true
+  register: result
+  failed_when:
+    - "result is failed and not 'svcadm: Pattern' in result.msg"
+    - "result is failed and not 'match any instances' in result.msg"
+...

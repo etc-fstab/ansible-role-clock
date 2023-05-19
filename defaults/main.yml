@@ -1,0 +1,7 @@
+---
+# default vars
+
+# For positive: [Yy][Ee][Ss], Y, y
+# For negative: [Nn][Oo], N, n
+time_mgmt: "yes"
+...

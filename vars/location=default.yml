@@ -1,0 +1,5 @@
+---
+# US Pacific is default here
+timezone: "America/Los_Angeles"
+time_conf: "templates/location=default.j2"
+...

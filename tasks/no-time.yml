@@ -1,0 +1,38 @@
+---
+- name: Clock is not managed on a host
+  ansible.builtin.debug:
+    msg: "Time is not managed on {{ inventory_hostname }}"
+
+- name: Stop, disable time service for Linux
+  when:
+    ansible_facts['os_family'] == "RedHat"
+  vars:
+    linux_services:
+      - ntpd
+      - chronyd
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: false
+  loop: "{{ linux_services }}"
+  register: result
+  failed_when:
+    - "result is failed and not 'Could not find the requested service' in result.msg"
+
+- name: Stop, disable time service for Solaris
+  when: ansible_facts['os_family'] == "Solaris"
+  # https://github.com/ansible/ansible/issues/73872
+  vars:
+    solaris_services:
+      - ntp
+      - chrony
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: false
+  loop: "{{ solaris_services }}"
+  register: result
+  failed_when:
+    - "result is failed and not 'svcadm: Pattern' in result.msg"
+    - "result is failed and not 'match any instances' in result.msg"
+...
