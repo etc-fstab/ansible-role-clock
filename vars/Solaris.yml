@@ -1,5 +1,6 @@
 ---
 time_pkg: "ntp"
 time_service: "ntp"
+time_cfg_file: "/etc/inet/ntp.conf"
 driftfile: "/var/ntp/ntp.drift"
 ...

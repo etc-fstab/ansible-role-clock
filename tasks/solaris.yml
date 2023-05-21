@@ -18,7 +18,7 @@
 - name: Manage Solaris time config file
   ansible.builtin.template:
     src: "{{ time_conf }}"
-    dest: /etc/inet/ntp.conf
+    dest: "{{ time_cfg_file }}"
     owner: root
     group: root
     mode: "0644"

@@ -1,12 +1,13 @@
 Role Name
 =========
-This is Ansible role for managing clock. The clock/time is managed based on:
+This is Ansible role for managing clock. 
+It's chrony for Linux and ntp for Solaris. 
 
-- Host conf.
+The clock/time is managed based on (in this order):
 
-- Hosts group confg (if no host cfg).
-
-- Ansible OS Family conf (if no host/group cfg).
+- Host based conf
+- Hosts group based conf
+- Location
 
 Role Variables
 --------------

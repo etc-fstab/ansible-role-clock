@@ -1,5 +1,6 @@
 ---
 time_pkg: "chrony"
 time_service: "chronyd"
+time_cfg_file: "/etc/chrony.conf"
 driftfile: "/var/lib/chrony/drift"
 ...

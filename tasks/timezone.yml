@@ -1,8 +1,6 @@
 ---
 - name: Manage timezone (Linux)
-  when:
-    ansible_facts['os_family'] == "RedHat" and
-    ansible_facts['distribution_major_version'] >= "8"
+  when: ansible_facts['os_family'] != "Solaris"
   community.general.timezone:
     name: "{{ timezone }}"
   notify:

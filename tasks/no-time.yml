@@ -4,8 +4,6 @@
     msg: "Time is not managed on {{ inventory_hostname }}"
 
 - name: Stop, disable time service for Linux
-  when:
-    ansible_facts['os_family'] == "RedHat"
   vars:
     linux_services:
       - ntpd

@@ -11,16 +11,20 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 8
-        - 9
+        - all
     - name: OracleLinux
       versions:
-        - 8
-        - 9
+        - all
     - name: Fedora
       versions:
-        - 28
+        - all
     - name: Solaris
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
       versions:
         - all
 
