@@ -18,7 +18,7 @@ Role Variables
 
 2. The OS family vars:
 
-```time_pkg```,  ```time_service```, ```driftfile```
+```time_pkg```,  ```time_service```, ```time_cfg_file```, ```driftfile```
 
 3. Host, hostgroup, location based vars:
 
